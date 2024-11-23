@@ -21,7 +21,6 @@ app.use(flash());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Middleware untuk flash messages
 app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success');
     res.locals.error_msg = req.flash('error');
@@ -45,7 +44,6 @@ app.get('/pupuk', async (req, res) => {
     }
 });
 
-// Route untuk menampilkan data bibit
 app.get('/bibit', async (req, res) => {
     try {
         const bibitList = await db.query('SELECT * FROM bibit');
@@ -58,4 +56,43 @@ app.get('/bibit', async (req, res) => {
     }
 });
 
+app.get('/pupuk/edit/:id', async (req, res) => {
+    try {
+        const pupukId = req.params.id;
+        const result = await db.query('SELECT * FROM pupuk WHERE id = ?', [pupukId]);
+        if (result.length === 0) {
+            req.flash('error', 'Data pupuk tidak ditemukan');
+            return res.redirect('/pupuk');
+        }
+        res.render('edit-form', {
+            editType: 'Pupuk',
+            item: result[0],
+            pageTitle: 'Edit Pupuk',
+            layout: 'layouts/main'
+        });
+    } catch (err) {
+        req.flash('error', 'Gagal mengambil data pupuk');
+        res.redirect('/pupuk');
+    }
+});
+
+app.get('/bibit/edit/:id', async (req, res) => {
+    try {
+        const bibitId = req.params.id;
+        const result = await db.query('SELECT * FROM bibit WHERE id = ?', [bibitId]);
+        if (result.length === 0) {
+            req.flash('error', 'Data bibit tidak ditemukan');
+            return res.redirect('/bibit');
+        }
+        res.render('edit-form', {
+            editType: 'Bibit',
+            item: result[0],
+            pageTitle: 'Edit Bibit',
+            layout: 'layouts/main'
+        });
+    } catch (err) {
+        req.flash('error', 'Gagal mengambil data bibit');
+        res.redirect('/bibit');
+    }
+});
 
