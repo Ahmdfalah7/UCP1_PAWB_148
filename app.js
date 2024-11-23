@@ -32,3 +32,30 @@ app.get('/', (req, res) => {
     res.render('index', { pageTitle: 'Dashboard' });
 });
 
+
+app.get('/pupuk', async (req, res) => {
+    try {
+        const pupukList = await db.query('SELECT * FROM pupuk');
+        res.render('pupuk', { pupukList });
+    } catch (err) {
+        res.status(500).render('error', {
+            message: 'Gagal mengambil data pupuk',
+            error: err
+        });
+    }
+});
+
+// Route untuk menampilkan data bibit
+app.get('/bibit', async (req, res) => {
+    try {
+        const bibitList = await db.query('SELECT * FROM bibit');
+        res.render('bibit', { bibitList });
+    } catch (err) {
+        res.status(500).render('error', {
+            message: 'Gagal mengambil data bibit',
+            error: err
+        });
+    }
+});
+
+
