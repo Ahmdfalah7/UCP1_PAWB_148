@@ -183,3 +183,42 @@ app.post('/bibit', async (req, res) => {
     }
 });
 
+app.get('/pupuk/delete/:id', async (req, res) => {
+    try {
+        const pupukId = req.params.id;
+        const result = await db.query('SELECT * FROM pupuk WHERE id = ?', [pupukId]);
+        
+        if (result.length === 0) {
+            req.flash('error', 'Data pupuk tidak ditemukan');
+            return res.redirect('/pupuk');
+        }
+
+        await db.query('DELETE FROM pupuk WHERE id = ?', [pupukId]);
+        req.flash('success', 'Data pupuk berhasil dihapus');
+        res.redirect('/pupuk');
+    } catch (err) {
+        req.flash('error', 'Gagal menghapus data pupuk');
+        res.redirect('/pupuk');
+    }
+});
+
+app.get('/bibit/delete/:id', async (req, res) => {
+    try {
+        const bibitId = req.params.id;
+        const result = await db.query('SELECT * FROM bibit WHERE id = ?', [bibitId]);
+        
+        if (result.length === 0) {
+            req.flash('error', 'Data bibit tidak ditemukan');
+            return res.redirect('/bibit');
+        }
+
+        await db.query('DELETE FROM bibit WHERE id = ?', [bibitId]);
+        req.flash('success', 'Data bibit berhasil dihapus');
+        res.redirect('/bibit');
+    } catch (err) {
+        req.flash('error', 'Gagal menghapus data bibit');
+        res.redirect('/bibit');
+    }
+});
+
+
