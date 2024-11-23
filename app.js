@@ -221,4 +221,14 @@ app.get('/bibit/delete/:id', async (req, res) => {
     }
 });
 
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).render('error', {
+        message: 'Terjadi kesalahan pada server',
+        error: err
+    });
+});
 
+app.listen(PORT, () => {
+    console.log(`Server berjalan di http://localhost:${PORT}`);
+});
