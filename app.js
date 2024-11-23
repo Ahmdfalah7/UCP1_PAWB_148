@@ -96,3 +96,47 @@ app.get('/bibit/edit/:id', async (req, res) => {
     }
 });
 
+app.post('/pupuk/edit/:id', async (req, res) => {
+    try {
+        const { nama_pupuk, jenis_pupuk, stok, harga_per_kg } = req.body;
+        const pupukId = req.params.id;
+        
+        if (!nama_pupuk || !jenis_pupuk || !stok || !harga_per_kg) {
+            req.flash('error', 'Semua field harus diisi');
+            return res.redirect(`/pupuk/edit/${pupukId}`);
+        }
+
+        await db.query(
+            'UPDATE pupuk SET nama_pupuk = ?, jenis_pupuk = ?, stok = ?, harga_per_kg = ? WHERE id = ?',
+            [nama_pupuk, jenis_pupuk, stok, harga_per_kg, pupukId]
+        );
+        req.flash('success', 'Data pupuk berhasil diperbarui');
+        res.redirect('/pupuk');
+    } catch (err) {
+        req.flash('error', 'Gagal memperbarui data pupuk');
+        res.redirect('/pupuk');
+    }
+});
+
+app.post('/bibit/edit/:id', async (req, res) => {
+    try {
+        const { nama_bibit, jenis_tanaman, stok, harga } = req.body;
+        const bibitId = req.params.id;
+
+        if (!nama_bibit || !jenis_tanaman || !stok || !harga) {
+            req.flash('error', 'Semua field harus diisi');
+            return res.redirect(`/bibit/edit/${bibitId}`);
+        }
+
+        await db.query(
+            'UPDATE bibit SET nama_bibit = ?, jenis_tanaman = ?, stok = ?, harga = ? WHERE id = ?',
+            [nama_bibit, jenis_tanaman, stok, harga, bibitId]
+        );
+        req.flash('success', 'Data bibit berhasil diperbarui');
+        res.redirect('/bibit');
+    } catch (err) {
+        req.flash('error', 'Gagal memperbarui data bibit');
+        res.redirect('/bibit');
+    }
+});
+
