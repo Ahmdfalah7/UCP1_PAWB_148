@@ -1,0 +1,55 @@
+<!-- views/bibit.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Bibit</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Data Bibit</h1>
+    </header>
+
+    <div class="container">
+        <h2>Daftar Bibit</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama Bibit</th>
+                    <th>Jenis Tanaman</th>
+                    <th>Umur Panen (hari)</th>
+                    <th>Stok</th>
+                    <th>Harga per Unit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% bibitList.forEach(bibit => { %>
+                    <tr>
+                        <td><%= bibit.id %></td>
+                        <td><%= bibit.nama_bibit %></td>
+                        <td><%= bibit.jenis_tanaman %></td>
+                        <td><%= bibit.umur_panen %></td>
+                        <td><%= bibit.stok %></td>
+                        <td><%= bibit.harga_per_unit %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <div class="form-container">
+            <h3>Tambah Bibit Baru</h3>
+            <form action="/bibit" method="POST">
+                <input type="text" name="nama_bibit" placeholder="Nama Bibit" required>
+                <input type="text" name="jenis_tanaman" placeholder="Jenis Tanaman" required>
+                <input type="number" name="umur_panen" placeholder="Umur Panen (hari)" required>
+                <input type="number" name="stok" placeholder="Stok" required>
+                <input type="number" name="harga_per_unit" placeholder="Harga per Unit" required>
+                <button type="submit">Tambah Bibit</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
