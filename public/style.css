@@ -1,33 +1,62 @@
+/* Custom styles to enhance Bootstrap */
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background-color: #f9f9f9; /* Tambahkan warna latar belakang untuk membuat tampilan lebih menarik */
-  }
-  
-  h1 {
-    color: #2c3e50;
-    text-align: center; /* Sesuaikan agar judul berada di tengah */
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    border: 1px solid #ddd; /* Tambahkan border untuk membuat tampilan lebih rapi */
-  }
-  
-  th, td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: left;
-    background-color: #fff; /* Tambahkan warna latar belakang untuk membuat tampilan lebih menarik */
-  }
-  
-  a {
-    text-decoration: none;
-    color: #3498db;
-    transition: color 0.2s ease; /* Tambahkan efek transisi untuk membuat tampilan lebih interaktif */
-  }
-  a:hover {
-    color: #2980b9; /* Tambahkan warna hover untuk membuat tampilan lebih menarik */
-  }
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.container {
+  padding: 2rem 0;
+}
+
+.card {
+  border: none;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.table thead th {
+  border-top: none;
+  background-color: #198754;
+  color: white;
+}
+
+.btn {
+  border-radius: 0.25rem;
+  padding: 0.375rem 0.75rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-success {
+  background-color: #198754;
+  border-color: #198754;
+}
+
+.btn-success:hover {
+  background-color: #157347;
+  border-color: #146c43;
+}
+
+.form-control:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+}
+
+.invalid-feedback {
+  font-size: 0.875rem;
+}
+
+.shadow-sm {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
