@@ -44,6 +44,7 @@ app.get('/pupuk', async (req, res) => {
     }
 });
 
+
 app.get('/bibit', async (req, res) => {
     try {
         const bibitList = await db.query('SELECT * FROM bibit');
@@ -136,6 +137,48 @@ app.post('/bibit/edit/:id', async (req, res) => {
         res.redirect('/bibit');
     } catch (err) {
         req.flash('error', 'Gagal memperbarui data bibit');
+        res.redirect('/bibit');
+    }
+});
+
+app.post('/pupuk', async (req, res) => {
+    try {
+        const { nama_pupuk, jenis_pupuk, stok, harga_per_kg } = req.body;
+
+        if (!nama_pupuk || !jenis_pupuk || !stok || !harga_per_kg) {
+            req.flash('error', 'Semua field harus diisi');
+            return res.redirect('/pupuk');
+        }
+
+        await db.query(
+            'INSERT INTO pupuk (nama_pupuk, jenis_pupuk, stok, harga_per_kg) VALUES (?, ?, ?, ?)',
+            [nama_pupuk, jenis_pupuk, stok, harga_per_kg]
+        );
+        req.flash('success', 'Data pupuk berhasil ditambahkan');
+        res.redirect('/pupuk');
+    } catch (err) {
+        req.flash('error', 'Gagal menambahkan data pupuk');
+        res.redirect('/pupuk');
+    }
+});
+
+app.post('/bibit', async (req, res) => {
+    try {
+        const { nama_bibit, jenis_tanaman, stok, harga } = req.body;
+
+        if (!nama_bibit || !jenis_tanaman || !stok || !harga) {
+            req.flash('error', 'Semua field harus diisi');
+            return res.redirect('/bibit');
+        }
+
+        await db.query(
+            'INSERT INTO bibit (nama_bibit, jenis_tanaman, stok, harga) VALUES (?, ?, ?, ?)',
+            [nama_bibit, jenis_tanaman, stok, harga]
+        );
+        req.flash('success', 'Data bibit berhasil ditambahkan');
+        res.redirect('/bibit');
+    } catch (err) {
+        req.flash('error', 'Gagal menambahkan data bibit');
         res.redirect('/bibit');
     }
 });
